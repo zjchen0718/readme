@@ -1,0 +1,46 @@
+---
+title: "Untitled"
+author: "Zhijiang Chen"
+date: "2022-09-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Q1
+Answer the following questions with dplyr code in RMarkdown. Post the answer into your github as a “nice readme” as explained in class.
+
+How many flights have a missing dep_time? What other variables are missing? What might these rows represent?
+
+```{r}
+library(dplyr)
+library(nycflights13)
+library(ggplot2)
+flights
+flights_1<-flights%>%summarize(sum(is.na(dep_time)))
+```
+## 8255 flights missed. Other missing variables are dep_delay, arr_time, arr_delay, air_time. These rows represent that these airplanes are cancelled. 
+
+
+## Q2 Currently dep_time and sched_dep_time are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
+
+```{r}
+flights_2<-flights%>%
+  mutate(dep_time=(dep_time%/%100*60+(dep_time%%100)))%>%
+  mutate(sched_dep_time=(sched_dep_time%/%100*60+(sched_dep_time%%100)))
+flights_2
+```
+
+## Q3 Look at the number of canceled flights per day. Is there a pattern? Is the proportion of canceled flights related to the average delay? Use multiple dyplr operations, all on one line, concluding with ggplot(aes(x= ,y=)) + geom_point()
+```{r}
+
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
