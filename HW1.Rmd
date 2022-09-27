@@ -41,6 +41,12 @@ flights_2
 
 ## Q3 Look at the number of canceled flights per day. Is there a pattern? Is the proportion of canceled flights related to the average delay? Use multiple dyplr operations, all on one line, concluding with ggplot(aes(x= ,y=)) + geom_point()
 ```{r}
-
+flights_3<-flights %>%
+  group_by(day) %>%
+  summarize(number_of_cancelled=sum(is.na(dep_time)),
+            average_delay=mean((arr_delay+dep_delay)/2, na.rm = T))%>%
+  ggplot(aes(x=number_of_cancelled ,y=average_delay)) + geom_point()
+flights_3
 ```
+## Based on the plot, we can see average delay and number of cancelled have a linear relation. So, it's a pattern. 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
